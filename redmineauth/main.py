@@ -7,7 +7,7 @@ wsgi_template = '''import redmineauth
 DB_CONFIG = {{
     "dbn" : "{dbn}",
     "host" : "{host}",
-    "port" : "{port}",
+    "port" : {port},
     "user" : "{user}",
     "pw" : "{pw}",
     "db" : "{db}",
