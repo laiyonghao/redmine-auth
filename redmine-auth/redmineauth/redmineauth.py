@@ -10,11 +10,6 @@ except ImportError:
 
 import web
 
-DBN = 'mysql'
-USER = 'redmine'
-PASSWORD = 'redmine82##'
-DATABASE = 'redmine'
-
 def _hash_password(raw_password, salt):
     if not salt:
         # low version redmine
@@ -22,9 +17,9 @@ def _hash_password(raw_password, salt):
     hashed_password = sha1(salt + sha1(raw_password).hexdigest()).hexdigest()
     return hashed_password
 
-def check_password(environ, user, password):
+def check_password(dbconfig, user, password):
 #    print >> sys.stderr, 'user:', user
-    db = web.database(dbn = DBN, user = USER, pw = PASSWORD, db = DATABASE)
+    db = web.database(**dbconfig)
 
     vars = {
         'login' : user,
@@ -55,4 +50,7 @@ def check_password(environ, user, password):
         if hashed_password == password_expect:
             return True
     return False
-    
+
+
+
+
