@@ -5,7 +5,7 @@ version = '0.1.0'
 
 setup(name='redmine-auth',
       version=version,
-      description="An apache2 authentication provider implementation, redmine database used to authenticate. It can be used for subversion authentication, etc.",
+      description="An apache2 authentication provider implementation, redmine database is used for authenticate. It can be used for subversion authentication, etc.",
       long_description="""\
 Please visit project home page for more help.
 """,

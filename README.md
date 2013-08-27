@@ -4,7 +4,7 @@ redmine-auth manuals
 Introduction
 -------
 
-redmine-auth is an `apache2` authentication provider implementation, `redmine` database used to authenticate. It can be used for `subversion` authentication, etc.
+redmine-auth is an `apache2` authentication provider implementation, `redmine` database is used for authenticate. It can be used for `subversion` authentication, etc.
 
 Requirements
 --------
@@ -12,7 +12,7 @@ Requirements
 * Apache 2.2+
 * mod_wsgi 2.0+
 
-Your must install a python database driver, for example, if you use `mysql` as your `redmine` database, your may be install `MySQLdb`.
+Your must install a python database driver, for example, if you use `mysql` as your `redmine` database, use `MySQLdb`.
 
 Only tested in `Ubuntu Server(x64) 12.04 LTS`, other softwares listed below:
 
@@ -41,9 +41,9 @@ Run command
 redmine-auth -g WSGI-FILE-PATH
 ```
 
-`redmine-auth` will ask you some questions, and write the answers to `WSGI-FILE-PATH`.
+`redmine-auth` will ask you some questions, then write the answers to `WSGI-FILE-PATH`.
 
-Edit your apache2 site config file, such as `/etc/apache2/sites-enabled/svn.conf`, add AuthBasicProvider to it, it will be looks like below:
+Edit your apache2 site config file, such as `/etc/apache2/sites-enabled/svn.conf`, add AuthBasicProvider to it, make it looks like below:
 
 ```
 <VirtualHost *:1081>
@@ -68,7 +68,7 @@ Edit your apache2 site config file, such as `/etc/apache2/sites-enabled/svn.conf
 </VirtualHost>
 ```
 
-Please replace `WSGI-FILE-PATH` in config file to real path.
+Please replace `WSGI-FILE-PATH` in config file with real path.
 
 Then, restart apache2:
 
