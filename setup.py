@@ -7,6 +7,7 @@ setup(name='redmine-auth',
       version=version,
       description="An apache2 authentication provider implementation, redmine database used to authenticate. It can be used for subversion authentication, etc.",
       long_description="""\
+Please visit project home page for more help.
 """,
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='apache, apache2, redmine, auth, svn, subversion',
