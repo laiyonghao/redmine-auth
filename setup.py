@@ -23,6 +23,7 @@ Please visit project home page for more help.
           # -*- Extra requirements: -*-
           'argparse',
           'web.py',
+          'DBUtils',
       ],
       entry_points="""
       # -*- Entry points: -*-
