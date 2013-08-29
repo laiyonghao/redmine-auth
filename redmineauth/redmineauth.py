@@ -10,6 +10,8 @@ except ImportError:
 
 import web
 
+db = None
+
 def _hash_password(raw_password, salt):
     if not salt:
         # low version redmine
@@ -19,7 +21,9 @@ def _hash_password(raw_password, salt):
 
 def check_password(dbconfig, user, password):
 #    print >> sys.stderr, 'user:', user
-    db = web.database(**dbconfig)
+    global db
+    if not db:
+        db = web.database(**dbconfig)
 
     vars = {
         'login' : user,
