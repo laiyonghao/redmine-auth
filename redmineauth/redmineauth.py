@@ -8,9 +8,8 @@ try:
 except ImportError:
     from sha import sha as sha1
 
-import web
-
-db = None
+import sqlalchemy
+from sqlalchemy.pool import NullPool
 
 def _hash_password(raw_password, salt):
     if not salt:
@@ -21,32 +20,13 @@ def _hash_password(raw_password, salt):
 
 def check_password(dbconfig, user, password):
 #    print >> sys.stderr, 'user:', user
-    global db
-    if not db:
-        db = web.database(**dbconfig)
-
-    vars = {
-        'login' : user,
-        'status' : 1, # active user
-    }
-    where = web.db.sqlwhere(vars)
-    what = ','.join(['login', 'hashed_password', 'salt'])
-    has_salt_field = True
-    try:
-        records = db.select('users', vars = vars, where = where, what = what)
-    except Exception, e:
-        if 'salt' in str(e): # not salt field in low version redmine
-            what = ','.join(['login', 'hashed_password'])
-            records = db.select('users', vars = vars, where = where, what = what)
-            has_salt_field = False
-        else:
-            raise
+    conn_str = "{dbn}://{user}:{pw}@{host}:{port}/{db}"
+    engine = sqlalchemy.create_engine(conn_str.format(**dbconfig), poolclass = NullPool)
+    conn = engine.connect()
+    records = conn.execute('select login, hashed_password, salt from users where login="?" and status = 1', user)
 
     for record in records:
-        if has_salt_field:
-            salt = record['salt']
-        else:
-            salt = None
+        salt = record['salt']
         password_expect = record['hashed_password']
 #        print >> sys.stderr, 'password_expect:', password_expect
         hashed_password = _hash_password(password, salt)
@@ -54,7 +34,6 @@ def check_password(dbconfig, user, password):
         if hashed_password == password_expect:
             return True
     return False
-
 
 
 

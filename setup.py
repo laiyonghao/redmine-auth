@@ -22,8 +22,7 @@ Please visit project home page for more help.
       install_requires=[
           # -*- Extra requirements: -*-
           'argparse',
-          'web.py',
-          'DBUtils',
+          'sqlalchemy',
       ],
       entry_points="""
       # -*- Entry points: -*-
