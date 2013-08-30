@@ -10,6 +10,7 @@ except ImportError:
 
 import sqlalchemy
 from sqlalchemy.pool import NullPool
+from sqlalchemy.sql import text
 
 def _hash_password(raw_password, salt):
     if not salt:
@@ -23,7 +24,8 @@ def check_password(dbconfig, user, password):
     conn_str = "{dbn}://{user}:{pw}@{host}:{port}/{db}"
     engine = sqlalchemy.create_engine(conn_str.format(**dbconfig), poolclass = NullPool)
     conn = engine.connect()
-    records = conn.execute('select login, hashed_password, salt from users where login="?" and status = 1', user)
+    s = text('select login, hashed_password, salt from users where login=:u and status = 1')
+    records = conn.execute(s, u = user)
 
     for record in records:
         salt = record['salt']
