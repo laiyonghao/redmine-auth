@@ -26,9 +26,14 @@ def check_password(dbconfig, user, password):
     conn = engine.connect()
     s = text('select login, hashed_password, salt from users where login=:u and status = 1')
     result = conn.execute(s, u = user)
+    print result
     record = result.fetchone()
+    print record
+    print '*'*30
     result.close()
     conn.close()
+    if not record:
+        return False
     salt = record['salt']
     password_expect = record['hashed_password']
 #    print >> sys.stderr, 'password_expect:', password_expect
