@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.2.1'
+version = '0.3.0'
 
 setup(name='redmine-auth',
       version=version,
-      description="Subversion Authentication Through Redmine",
+      description="Subversion/Jenkins Authentication Through Redmine",
       long_description="""\
 An apache2 authentication provider implementation, redmine database is used for authenticate. It can be used for subversion authentication, etc.
 Please visit project home page for more help.
@@ -28,5 +28,6 @@ Please visit project home page for more help.
       # -*- Entry points: -*-
       [console_scripts]
       redmine-auth = redmineauth.main:main
+      redmine-auth-jenkins = redmineauth.jenkins:main
       """,
       )

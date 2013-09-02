@@ -22,14 +22,17 @@ def _hash_password(raw_password, salt):
 def check_password(dbconfig, user, password):
 #    print >> sys.stderr, 'user:', user
     conn_str = "{dbn}://{user}:{pw}@{host}:{port}/{db}"
-    engine = sqlalchemy.create_engine(conn_str.format(**dbconfig), poolclass = NullPool)
+    return check_password_conn_str(conn_str.format(**dbconfig), user, password)
+
+def check_password_conn_str(conn_str, user, password):
+    engine = sqlalchemy.create_engine(conn_str, poolclass = NullPool)
     conn = engine.connect()
     s = text('select login, hashed_password, salt from users where login=:u and status = 1')
     result = conn.execute(s, u = user)
-    print result
+#    print result
     record = result.fetchone()
-    print record
-    print '*'*30
+#    print record
+#    print '*'*30
     result.close()
     conn.close()
     if not record:
@@ -42,6 +45,5 @@ def check_password(dbconfig, user, password):
     if hashed_password == password_expect:
         return True
     return False
-
 
 
