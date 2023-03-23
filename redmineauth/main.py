@@ -11,10 +11,11 @@ DB_CONFIG = {{
     "user" : "{user}",
     "pw" : "{pw}",
     "db" : "{db}",
+    "groups" : "{groups}",
 }}
 
-def check_password(environ, user, password):
-    return redmineauth.check_password(DB_CONFIG, user, password)
+def check_password(environ, user, password, groups):
+    return redmineauth.check_password(DB_CONFIG, user, password, groups)
 '''
 
 def main():
@@ -41,6 +42,8 @@ def main():
     settings['pw'] = t.strip()
     t = raw_input('Redmine Database Name [redmine]:')
     settings['db'] = t if t.strip() else 'redmine'
+    t = raw_input('Redmine user group that is allowed repository access. multiple groups can use separator (,) []:')
+    settings['groups'] = t if t.strip() else ''
 
     args.config_file.write(wsgi_template.format(**settings))
 

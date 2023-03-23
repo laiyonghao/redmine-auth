@@ -18,7 +18,13 @@ def main():
         sys.exit(1)
     user = os.environ['U']
     password = os.environ['P']
-    result = check_password_conn_str(args.conn_str, user, password)
+
+    if 'G' not in os.environ:
+        groups = ''
+    else:
+        groups = os.environ['G']
+
+    result = check_password_conn_str(args.conn_str, user, password, groups)
     if result:
         print 'succ'
         sys.exit(0)
